@@ -1,0 +1,35 @@
+@import '~roboto-fontface/css/roboto/roboto-fontface.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "theme/palatte";
+@import "theme/material_colors";
+@import "theme/material_other";
+
+body {
+  margin: 0;
+
+  background-color: $background-color;
+
+  // Fonts
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  color: $font-color;
+  font-size: 14px;
+
+  // Font smoothing
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Overflow
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.not-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
