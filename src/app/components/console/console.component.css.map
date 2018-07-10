@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,KAAK;EACH,MAAM,EAAE,IAAI",
+"sources": ["console.component.scss"],
 "names": [],
 "file": "console.component.css"
 }

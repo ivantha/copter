@@ -6,14 +6,18 @@
 @import "theme/material_colors";
 @import "theme/material_other";
 
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
+@import url('https://fonts.googleapis.com/css?family=Alegreya+SC');
+
 body {
   margin: 0;
 
   background-color: $background-color;
 
   // Fonts
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-  color: $font-color;
+  //font-family: 'Cinzel', serif;
+  font-family: 'Alegreya SC', serif;
+  color: #FF9800;
   font-size: 14px;
 
   // Font smoothing

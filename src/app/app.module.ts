@@ -8,11 +8,16 @@ import {AngularFireModule} from "angularfire2";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {environment} from "../environments/environment";
+import {MatButtonModule, MatDialogModule, MatSlideToggleModule} from "@angular/material";
+import { StartMenuComponent } from './components/start-menu/start-menu.component';
+import { GameOverComponent } from './components/game-over/game-over.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConsoleComponent
+    ConsoleComponent,
+    StartMenuComponent,
+    GameOverComponent
   ],
   imports: [
     BrowserModule,
@@ -20,8 +25,15 @@ import {environment} from "../environments/environment";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatSlideToggleModule
   ],
   providers: [
+  ],
+  entryComponents: [
+    StartMenuComponent,
+    GameOverComponent
   ],
   bootstrap: [AppComponent]
 })

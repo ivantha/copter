@@ -1,0 +1,25 @@
+#start-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.2); }
+  #start-menu h1 {
+    margin: 1rem;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #FF9800; }
+  #start-menu p {
+    margin: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: white; }
+  #start-menu button {
+    display: inline-flex;
+    margin: 1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Alegreya SC', serif; }
+
+/*# sourceMappingURL=start-menu.component.css.map */

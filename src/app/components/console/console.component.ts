@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import {Helicopter} from "./models/helicopter";
 import {Clock, OrthographicCamera, Scene, WebGLRenderer} from "three/three-core";
 import {Cave} from "./models/cave";
+import {MatDialog} from "@angular/material";
+import {StartMenuComponent} from "../start-menu/start-menu.component";
 
 @Component({
   selector: 'app-console',
@@ -30,7 +32,20 @@ export class ConsoleComponent implements OnInit {
 
   private running = false;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
+    // Show start-menu dialog
+    const dialogRef = this.dialog.open(StartMenuComponent, {
+      panelClass: 'menu-dialog-container',
+      data: {
+        someData: 'xxx'
+      }
+    });
+
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   ngOnInit() {
@@ -41,10 +56,12 @@ export class ConsoleComponent implements OnInit {
 
       let deltaTime = this.clock.getDelta();
 
-      this.moveHelicopter(deltaTime);
       this.cave.shiftBlocks();
 
-      this.isColliding();
+      if(this.running){
+        this.moveHelicopter(deltaTime);
+        this.isColliding();
+      }
 
       // Render the scene
       this.renderer.render(this.scene, this.camera);
@@ -76,13 +93,6 @@ export class ConsoleComponent implements OnInit {
     this.clock = new THREE.Clock();
     this.clock.getDelta();
 
-    // Add a Helicopter object
-    this.helicopter = new Helicopter(this.unitX, this.unitY);
-    this.scene.add(this.helicopter.object);
-
-    // x position of the helicopter
-    this.helicopter.object.position.x = this.unitX * -25;
-
     // Add the cave
     this.cave = new Cave(this.unitX, this.unitY, window.innerWidth, window.innerHeight);
     for (let i = 0; i < this.cave.blockCount; i++) {
@@ -91,6 +101,18 @@ export class ConsoleComponent implements OnInit {
     for (let i = 0; i < this.cave.blockCount; i++) {
       this.scene.add(this.cave.bottomObjectArray[i]);
     }
+  }
+
+  /**
+   * Add a Helicopter object to the scene
+   */
+  addHelicopter(): void{
+    // Add a Helicopter object
+    this.helicopter = new Helicopter(this.unitX, this.unitY);
+    this.scene.add(this.helicopter.object);
+
+    // x position of the helicopter
+    this.helicopter.object.position.x = this.unitX * -25;
   }
 
   /**
