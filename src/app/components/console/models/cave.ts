@@ -27,7 +27,7 @@ export class Cave {
   constructor(private unitX: number, private unitY: number, private caveWidth: number, private caveHeight: number) {
 
     // Set cave parameters
-    this.tunnelHeight = this.unitY * 70;
+    this.tunnelHeight = this.unitY * 60;
     this.wallHeight = this.caveHeight - this.tunnelHeight;
 
     // Set block parameters
@@ -36,7 +36,7 @@ export class Cave {
     this.blockHeightArray = [];
 
     this.preheight = unitY;
-    this.postHeight = Cave.generateRandom(0, unitY * 30);
+    this.postHeight = Cave.generateRandom(0, unitY * 40);
 
     for (let i = 0; i < this.blockCount; i++) {
       if (Math.abs(this.preheight - this.postHeight) < this.heightIncrementCount) {
@@ -148,4 +148,5 @@ export class Cave {
 
     this.setBlockHeights();
   }
+
 }

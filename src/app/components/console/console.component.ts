@@ -66,7 +66,7 @@ export class ConsoleComponent implements OnInit {
     this.camera.position.z = 10;
 
     // Initialize the renderer
-    this.renderer = new THREE.WebGLRenderer({ alpha: true });
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 
@@ -116,6 +116,14 @@ export class ConsoleComponent implements OnInit {
         this.helicopter.vY = -1 * this.terminalVYDown;
       }
     }
+  }
+
+  /**
+   * Is copter colliding with walls
+   * @returns {boolean}
+   */
+  isColliding(): boolean {
+
   }
 
 }
