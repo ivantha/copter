@@ -28,6 +28,8 @@ export class ConsoleComponent implements OnInit {
   private helicopter: Helicopter;
   private cave: Cave;
 
+  private running = false;
+
   constructor() {
   }
 
@@ -56,6 +58,7 @@ export class ConsoleComponent implements OnInit {
   initialize(): void {
     // Initialize the scene
     this.scene = new THREE.Scene();
+    // this.scene.background = new THREE.Color(a)
 
     // Initialize the camera
     this.camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2,
@@ -63,7 +66,7 @@ export class ConsoleComponent implements OnInit {
     this.camera.position.z = 10;
 
     // Initialize the renderer
-    this.renderer = new THREE.WebGLRenderer();
+    this.renderer = new THREE.WebGLRenderer({ alpha: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 

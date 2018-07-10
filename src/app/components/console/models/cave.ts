@@ -1,4 +1,5 @@
-import {BoxGeometry, Mesh, MeshBasicMaterial} from 'three';
+import * as THREE from 'three';
+import {BoxGeometry, Mesh} from 'three';
 
 export class Cave {
 
@@ -19,7 +20,9 @@ export class Cave {
 
   preheight: number;
   postHeight: number;
-  heightIncrementCount = 75;
+  heightIncrementCount = 60;
+
+  shiftRate = 3;
 
   constructor(private unitX: number, private unitY: number, private caveWidth: number, private caveHeight: number) {
 
@@ -46,7 +49,13 @@ export class Cave {
     }
 
     // Initialize the Material
-    let material = new MeshBasicMaterial({color: 0x00ff00});
+    let topTexture = new THREE.Texture(Cave.generateWallTexture(true));
+    topTexture.needsUpdate = true;
+    let topMaterial = new THREE.MeshBasicMaterial({map: topTexture, overdraw: 0.5});
+
+    let bottomTexture = new THREE.Texture(Cave.generateWallTexture(false));
+    bottomTexture.needsUpdate = true;
+    let bottomMaterial = new THREE.MeshBasicMaterial({map: bottomTexture, overdraw: 0.5});
 
     // Construct the objects
     this.topObjectArray = [];
@@ -54,9 +63,9 @@ export class Cave {
     for (let i = 0; i < this.blockCount; i++) {
       // Create objects
       let topGeometry = new BoxGeometry(this.blockWidth, 1, 1);
-      let topObject = new Mesh(topGeometry, material);
+      let topObject = new Mesh(topGeometry, topMaterial);
       let bottomGeometry = new BoxGeometry(this.blockWidth, 1, 1);
-      let bottomObject = new Mesh(bottomGeometry, material);
+      let bottomObject = new Mesh(bottomGeometry, bottomMaterial);
 
       // Push to geometry array
       this.topObjectArray.push(topObject);
@@ -68,11 +77,46 @@ export class Cave {
     this.vX = unitX * 25;
   }
 
+  /**
+   * Generate texture for walls
+   * @param {boolean} isTop
+   * @returns {HTMLCanvasElement}
+   */
+  static generateWallTexture(isTop: boolean): HTMLCanvasElement {
+    let size = 512;
+
+    // Create canvas
+    let canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+
+    // Get context
+    let context = canvas.getContext('2d');
+
+    // Draw gradient
+    context.rect(0, 0, size, size);
+    let gradient = context.createLinearGradient(0, 0, 0, size);
+
+    if(!isTop){
+      gradient = context.createLinearGradient(0, size, 0, 0);
+    }
+
+    gradient.addColorStop(0, '#1e130c');
+    gradient.addColorStop(1, '#9a8478'); // dark blue
+    context.fillStyle = gradient;
+    context.fill();
+
+    return canvas;
+  }
+
   static generateRandom(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  setBlockHeights(): void{
+  /**
+   * Re-set the block heights in the array
+   */
+  setBlockHeights(): void {
     for (let i = 0; i < this.blockCount; i++) {
       // Set heights
       this.topObjectArray[i].scale.y = this.blockHeightArray[i];
