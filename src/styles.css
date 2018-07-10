@@ -1629,16 +1629,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   overflow-y: hidden;
-  background-color: #203A43;
-  background-image: -webkit-gradient(#0F2027, #203A43, #2C5364);
+  background-color: #029DA1;
+  background-image: -webkit-gradient(#029DA1, #002A3A);
   /* Safari 5.1, iOS 5.0-6.1, Chrome 10-25, Android 4.0-4.3 */
-  background-image: -webkit-linear-gradient(#0F2027, #203A43, #2C5364);
+  background-image: -webkit-linear-gradient(#029DA1, #002A3A);
   /* Firefox 3.6 - 15 */
-  background-image: -moz-linear-gradient(#0F2027, #203A43, #2C5364);
+  background-image: -moz-linear-gradient(#029DA1, #002A3A);
   /* Opera 11.1 - 12 */
-  background-image: -o-linear-gradient(#0F2027, #203A43, #2C5364);
+  background-image: -o-linear-gradient(#029DA1, #002A3A);
   /* Opera 15+, Chrome 25+, IE 10+, Firefox 16+, Safari 6.1+, iOS 7+, Android 4.4+ */
-  background-image: linear-gradient(#0F2027, #203A43, #2C5364); }
+  background-image: linear-gradient(#029DA1, #002A3A); }
 
 .not-selectable {
   -webkit-touch-callout: none;

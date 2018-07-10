@@ -44,6 +44,8 @@ export class ConsoleComponent implements OnInit {
       this.moveHelicopter(deltaTime);
       this.cave.shiftBlocks();
 
+      this.isColliding();
+
       // Render the scene
       this.renderer.render(this.scene, this.camera);
     };
@@ -86,7 +88,6 @@ export class ConsoleComponent implements OnInit {
     for (let i = 0; i < this.cave.blockCount; i++) {
       this.scene.add(this.cave.topObjectArray[i]);
     }
-
     for (let i = 0; i < this.cave.blockCount; i++) {
       this.scene.add(this.cave.bottomObjectArray[i]);
     }
@@ -123,7 +124,23 @@ export class ConsoleComponent implements OnInit {
    * @returns {boolean}
    */
   isColliding(): boolean {
+    for(let i = 0; i < this.cave.blockCount; i++){
+      let topBlock = this.cave.topObjectArray[i];
+      let bottomBlock = this.cave.bottomObjectArray[i];
 
+      // If in the same x-range
+      if(Math.abs(topBlock.position.x - this.helicopter.object.position.x) < (this.unitX * 5)){
+        if((topBlock.position.y - (this.cave.blockHeightArray[i] / 2) - this.helicopter.object.position.y) < 0){
+          return true;
+        }
+
+        if((bottomBlock.position.y + ((this.cave.wallHeight - this.cave.blockHeightArray[i]) / 2) - this.helicopter.object.position.y) > 0){
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
 }

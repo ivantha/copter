@@ -101,8 +101,8 @@ export class Cave {
       gradient = context.createLinearGradient(0, size, 0, 0);
     }
 
-    gradient.addColorStop(0, '#1e130c');
-    gradient.addColorStop(1, '#9a8478'); // dark blue
+    gradient.addColorStop(0, '#150603');
+    gradient.addColorStop(1, '#935428'); // dark blue
     context.fillStyle = gradient;
     context.fill();
 
