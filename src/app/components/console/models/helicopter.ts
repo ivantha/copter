@@ -1,10 +1,7 @@
-import * as THREE from 'three';
-import {BoxGeometry, Mesh, MeshBasicMaterial} from "three/three-core";
+import {BoxGeometry, Mesh, MeshBasicMaterial} from "three";
 
 export class Helicopter {
 
-  private readonly geometry: BoxGeometry;
-  private readonly material: MeshBasicMaterial;
   readonly object: Mesh;
 
   vX = 0;
@@ -14,8 +11,19 @@ export class Helicopter {
 
   constructor(private unitX: number, private unitY: number) {
     // Construct the object
-    this.geometry = new THREE.BoxGeometry(this.unitX * 5, this.unitX * 2, 1);
-    this.material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    this.object = new THREE.Mesh(this.geometry, this.material);
+    let geometry = new BoxGeometry(this.unitX * 5, this.unitY * 3, 1);
+    let material = new MeshBasicMaterial({color: 0x00ff00});
+    this.object = new Mesh(geometry, material);
+
+    // Mouse-down event listener
+    document.body.addEventListener('mousedown', () => {
+      this.isAccelerating = true;
+    });
+
+    // Mouse-up event listener
+    document.body.addEventListener('mouseup', () => {
+      this.isAccelerating = false;
+    })
   }
+
 }

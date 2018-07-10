@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as THREE from 'three';
 import {Helicopter} from "./models/helicopter";
 import {Clock, OrthographicCamera, Scene, WebGLRenderer} from "three/three-core";
+import {Cave} from "./models/cave";
 
 @Component({
   selector: 'app-console',
@@ -25,6 +26,7 @@ export class ConsoleComponent implements OnInit {
   private terminalVYDown = window.innerWidth / 100 * 50;
 
   private helicopter: Helicopter;
+  private cave: Cave;
 
   constructor() {
   }
@@ -76,15 +78,15 @@ export class ConsoleComponent implements OnInit {
     // x position of the helicopter
     this.helicopter.object.position.x = this.unitX * -25;
 
-    // Mouse-down event listener
-    document.body.addEventListener('mousedown', () => {
-      this.helicopter.isAccelerating = true;
-    });
+    // Add the cave
+    this.cave = new Cave(this.unitX, this.unitY, window.innerWidth, window.innerHeight);
+    for (let i = 0; i < this.cave.blockCount; i++) {
+      this.scene.add(this.cave.topObjectArray[i]);
+    }
 
-    // Mouse-up event listener
-    document.body.addEventListener('mouseup', () => {
-      this.helicopter.isAccelerating = false;
-    })
+    for (let i = 0; i < this.cave.blockCount; i++) {
+      this.scene.add(this.cave.bottomObjectArray[i]);
+    }
   }
 
   /**
