@@ -10,33 +10,48 @@ import {Clock, OrthographicCamera, Scene, WebGLRenderer} from "three/three-core"
 })
 export class ConsoleComponent implements OnInit {
 
-  unitX = window.innerWidth / 100;
-  unitY = window.innerHeight / 100;
+  private unitX = window.innerWidth / 100;
+  private unitY = window.innerHeight / 100;
 
-  scene: Scene;
-  camera: OrthographicCamera;
-  renderer: WebGLRenderer;
-  clock: Clock;
+  private scene: Scene;
+  private camera: OrthographicCamera;
+  private renderer: WebGLRenderer;
+  private clock: Clock;
 
-  g = -9.8 * (this.unitY * 30);
-  a = 9.8 * (this.unitY * 30);
+  private g = -9.8 * (this.unitY * 30);
+  private a = 9.8 * (this.unitY * 30);
 
-  terminalVYUp = window.innerWidth / 100 * 30;
-  terminalVYDown = window.innerWidth / 100 * 50;
+  private terminalVYUp = window.innerWidth / 100 * 30;
+  private terminalVYDown = window.innerWidth / 100 * 50;
 
-  isAccelerating = false;
+  private helicopter: Helicopter;
 
   constructor() {
-    document.body.addEventListener('mousedown', () => {
-      this.isAccelerating = true;
-    });
-
-    document.body.addEventListener('mouseup', () => {
-      this.isAccelerating = false;
-    })
   }
 
   ngOnInit() {
+    this.initialize();
+
+    let animate = () => {
+      requestAnimationFrame(animate);
+
+      let deltaTime = this.clock.getDelta();
+
+      this.moveHelicopter(deltaTime);
+      this.moveCave(deltaTime);
+
+      // Render the scene
+      this.renderer.render(this.scene, this.camera);
+    };
+
+    // Animate
+    animate();
+  }
+
+  /**
+   * Initialize the game objects
+   */
+  initialize(): void {
     // Initialize the scene
     this.scene = new THREE.Scene();
 
@@ -54,42 +69,56 @@ export class ConsoleComponent implements OnInit {
     this.clock = new THREE.Clock();
     this.clock.getDelta();
 
-    // Add an AsexHelper
-    const axesHelper = new THREE.AxesHelper(this.unitX * 6);
-    this.scene.add(axesHelper);
+    // Add a Helicopter object
+    this.helicopter = new Helicopter(this.unitX, this.unitY);
+    this.scene.add(this.helicopter.object);
 
-    // Add a Helicoper object
-    let helicopter = new Helicopter();
-    this.scene.add(helicopter.object);
+    // x position of the helicopter
+    this.helicopter.object.position.x = this.unitX * -25;
 
-    let animate = () => {
-      requestAnimationFrame(animate);
+    // Mouse-down event listener
+    document.body.addEventListener('mousedown', () => {
+      this.helicopter.isAccelerating = true;
+    });
 
-      let deltaTime = this.clock.getDelta();
+    // Mouse-up event listener
+    document.body.addEventListener('mouseup', () => {
+      this.helicopter.isAccelerating = false;
+    })
+  }
 
-      helicopter.object.position.y += helicopter.vY * deltaTime;
+  /**
+   * Move the Helicopter
+   * @param {number} deltaTime
+   */
+  moveHelicopter(deltaTime: number): void {
+    this.helicopter.object.position.y += this.helicopter.vY * deltaTime;
 
-      if (this.isAccelerating) {
-        // Accelerate
-        helicopter.vY += this.a * deltaTime;
+    if (this.helicopter.isAccelerating) {
+      // Accelerate
+      this.helicopter.vY += this.a * deltaTime;
 
-        // Check if greater than terminal velocity
-        if (helicopter.vY > this.terminalVYUp) {
-          helicopter.vY = this.terminalVYUp;
-        }
-      } else {
-        // Fall in gravity
-        helicopter.vY += this.g * deltaTime;
-
-        // Check if greater than terminal velocity
-        if (helicopter.vY < -1 * this.terminalVYDown) {
-          helicopter.vY = -1 * this.terminalVYDown;
-        }
+      // Check if greater than terminal velocity
+      if (this.helicopter.vY > this.terminalVYUp) {
+        this.helicopter.vY = this.terminalVYUp;
       }
+    } else {
+      // Fall in gravity
+      this.helicopter.vY += this.g * deltaTime;
 
-      this.renderer.render(this.scene, this.camera);
-    };
-    animate();
+      // Check if greater than terminal velocity
+      if (this.helicopter.vY < -1 * this.terminalVYDown) {
+        this.helicopter.vY = -1 * this.terminalVYDown;
+      }
+    }
+  }
+
+  /**
+   * Move the Cave
+   * @param {number} deltaTime
+   */
+  moveCave(deltaTime: number): void {
+
   }
 
 }

@@ -1,21 +1,21 @@
 import * as THREE from 'three';
-import {BoxGeometry, Geometry, Material, Mesh, MeshBasicMaterial, Object3D} from "three/three-core";
+import {BoxGeometry, Mesh, MeshBasicMaterial} from "three/three-core";
 
 export class Helicopter {
 
-  unitX = window.innerWidth / 100;
-  unitY = window.innerHeight / 100;
-
-  private geometry: BoxGeometry;
-  private material: MeshBasicMaterial;
-  object: Mesh;
+  private readonly geometry: BoxGeometry;
+  private readonly material: MeshBasicMaterial;
+  readonly object: Mesh;
 
   vX = 0;
   vY = 0;
 
-  constructor() {
+  isAccelerating = false;
+
+  constructor(private unitX: number, private unitY: number) {
+    // Construct the object
     this.geometry = new THREE.BoxGeometry(this.unitX * 5, this.unitX * 2, 1);
-    this.material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    this.material = new THREE.MeshBasicMaterial({color: 0x00ff00});
     this.object = new THREE.Mesh(this.geometry, this.material);
   }
 }
