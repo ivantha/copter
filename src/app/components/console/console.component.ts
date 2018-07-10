@@ -40,7 +40,7 @@ export class ConsoleComponent implements OnInit {
       let deltaTime = this.clock.getDelta();
 
       this.moveHelicopter(deltaTime);
-      this.moveCave(deltaTime);
+      this.cave.shiftBlocks();
 
       // Render the scene
       this.renderer.render(this.scene, this.camera);
@@ -113,14 +113,6 @@ export class ConsoleComponent implements OnInit {
         this.helicopter.vY = -1 * this.terminalVYDown;
       }
     }
-  }
-
-  /**
-   * Move the Cave
-   * @param {number} deltaTime
-   */
-  moveCave(deltaTime: number): void {
-
   }
 
 }
