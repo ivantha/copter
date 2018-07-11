@@ -1,25 +1,36 @@
-#game-over {
+#game-over{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.1); }
-  #game-over h1 {
+
+  background:rgba(255,255,255,0.1);
+
+  h1{
     margin: 1rem;
+
     font-size: 3rem;
     font-weight: 800;
-    color: #FF9800; }
-  #game-over p {
+    color: #FF9800;
+  }
+
+  p{
     margin: 1rem;
+
     font-size: 1.4rem;
     font-weight: 500;
-    color: white; }
-  #game-over button {
+    color: white;
+  }
+
+  button{
     display: inline-flex;
+
     margin: 1rem;
+
     font-size: 1.4rem;
     font-weight: 700;
-    font-family: 'Alegreya SC', serif; }
-
-/*# sourceMappingURL=game-over.component.css.map */
+    font-family: 'Alegreya SC', serif;
+  }
+}

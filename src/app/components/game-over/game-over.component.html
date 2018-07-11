@@ -1,3 +1,5 @@
-<p>
-  game-over works!
-</p>
+<div id="game-over">
+  <h1 class="not-selectable">Game Over!</h1>
+  <p class="not-selectable">Your voyage ended tragically after travelling {{this.gameService.score}} m</p>
+  <button mat-raised-button color="primary" (click)="onClickRestart()">REPLAY</button>
+</div>
