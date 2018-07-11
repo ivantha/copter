@@ -1,3 +1,23 @@
 :host{
   height: 2rem;
+
+  p {
+    position: fixed;
+    top: 1rem;
+
+    margin: 1rem;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    font-family: 'Alegreya SC', serif;
+  }
+
+  #score-text{
+    left: 3rem;
+  }
+
+  #top-score-text{
+    right: 3rem;
+  }
 }

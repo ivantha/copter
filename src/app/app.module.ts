@@ -9,8 +9,9 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {environment} from "../environments/environment";
 import {MatButtonModule, MatDialogModule, MatSlideToggleModule} from "@angular/material";
-import { StartMenuComponent } from './components/start-menu/start-menu.component';
-import { GameOverComponent } from './components/game-over/game-over.component';
+import {StartMenuComponent} from './components/start-menu/start-menu.component';
+import {GameOverComponent} from './components/game-over/game-over.component';
+import {GameService} from "./services/game.service";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { GameOverComponent } from './components/game-over/game-over.component';
     MatSlideToggleModule
   ],
   providers: [
+    GameService
   ],
   entryComponents: [
     StartMenuComponent,
