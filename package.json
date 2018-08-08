@@ -29,7 +29,7 @@
     "hammerjs": "^2.0.8",
     "material-design-icons": "^3.0.1",
     "roboto-fontface": "^0.9.0",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.2.2",
     "three": "^0.95.0",
     "typeface-cinzel": "0.0.54",
     "zone.js": "^0.8.26"
