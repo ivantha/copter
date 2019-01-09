@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {GameService} from "../../services/game.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {Helicopter} from "../console/models/helicopter";
 
 @Component({
   selector: 'app-start-menu',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService: GameService,
+              @Inject(MAT_DIALOG_DATA) private data: any,
+              public dialogRef: MatDialogRef<StartMenuComponent>) { }
 
   ngOnInit() {
+  }
+
+  onClickStart(): void {
+    this.gameService.running = true;
+    this.dialogRef.close();
   }
 
 }

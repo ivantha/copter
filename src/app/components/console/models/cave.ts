@@ -16,13 +16,16 @@ export class Cave {
   topObjectArray: Mesh[];
   bottomObjectArray: Mesh[];
 
+  obstacleObject: Mesh;
+  obstaclePosition: number;
+  obstacleObjectHeight: number;
+  obstacleObjectWidth: number;
+
   vX: number;
 
   preheight: number;
   postHeight: number;
   heightIncrementCount = 60;
-
-  shiftRate = 3;
 
   constructor(private unitX: number, private unitY: number, private caveWidth: number, private caveHeight: number) {
 
@@ -48,6 +51,20 @@ export class Cave {
       this.blockHeightArray.push(this.preheight);
     }
 
+    // Create obstacle object
+    let obstacleTexture = new THREE.Texture(Cave.generateWallTexture(true));
+    obstacleTexture.needsUpdate = true;
+    let obstacleMaterial = new THREE.MeshBasicMaterial({map: obstacleTexture, overdraw: 0.5});
+    this.obstacleObjectWidth = this.blockWidth * 10;
+    let obstacleGeometry = new BoxGeometry(this.obstacleObjectWidth, 1, 1);
+    this.obstacleObject = new Mesh(obstacleGeometry, obstacleMaterial);
+
+    this.obstaclePosition = this.blockCount - 1;
+    this.obstacleObjectHeight = Cave.generateRandom(this.tunnelHeight * 0.3, this.tunnelHeight * 0.6);
+    let randPos = Cave.generateRandom(-0.5, 0.5);
+    this.obstacleObject.position.y = this.unitY * 20 * randPos;
+    this.obstacleObject.scale.y = this.obstacleObjectHeight;
+
     // Initialize the Material
     let topTexture = new THREE.Texture(Cave.generateWallTexture(true));
     topTexture.needsUpdate = true;
@@ -72,7 +89,7 @@ export class Cave {
       this.bottomObjectArray.push(bottomObject);
     }
 
-    this.setBlockHeights();
+    this.shiftBlockObjects();
 
     this.vX = unitX * 25;
   }
@@ -114,23 +131,6 @@ export class Cave {
   }
 
   /**
-   * Re-set the block heights in the array
-   */
-  setBlockHeights(): void {
-    for (let i = 0; i < this.blockCount; i++) {
-      // Set heights
-      this.topObjectArray[i].scale.y = this.blockHeightArray[i];
-      this.bottomObjectArray[i].scale.y = this.wallHeight - this.blockHeightArray[i];
-
-      // Set positions
-      this.topObjectArray[i].position.x = (this.blockWidth * i) - (this.caveWidth / 2);
-      this.topObjectArray[i].position.y = (this.caveHeight / 2) - (this.blockHeightArray[i] / 2);
-      this.bottomObjectArray[i].position.x = (this.blockWidth * i) - (this.caveWidth / 2);
-      this.bottomObjectArray[i].position.y = ((this.wallHeight - this.blockHeightArray[i]) / 2) - (this.caveHeight / 2);
-    }
-  }
-
-  /**
    * Shift the cave blocks
    */
   shiftBlocks(): void {
@@ -146,7 +146,38 @@ export class Cave {
 
     this.blockHeightArray[this.blockCount - 1] = this.preheight;
 
-    this.setBlockHeights();
+    this.shiftBlockObjects();
+    this.shiftObstacleObjects();
+  }
+
+  /**
+   * Shift block objects
+   */
+  shiftBlockObjects(): void {
+    for (let i = 0; i < this.blockCount; i++) {
+      // Set heights
+      this.topObjectArray[i].scale.y = this.blockHeightArray[i];
+      this.bottomObjectArray[i].scale.y = this.wallHeight - this.blockHeightArray[i];
+
+      // Set positions
+      this.topObjectArray[i].position.x = (this.blockWidth * i) - (this.caveWidth / 2);
+      this.topObjectArray[i].position.y = (this.caveHeight / 2) - (this.blockHeightArray[i] / 2);
+      this.bottomObjectArray[i].position.x = (this.blockWidth * i) - (this.caveWidth / 2);
+      this.bottomObjectArray[i].position.y = ((this.wallHeight - this.blockHeightArray[i]) / 2) - (this.caveHeight / 2);
+    }
+  }
+
+  shiftObstacleObjects(): void {
+    this.obstaclePosition -= 1;
+    if (this.obstaclePosition >= -10){
+      this.obstacleObject.position.x = (this.blockWidth * this.obstaclePosition) - (this.caveWidth / 2);
+    } else{
+      this.obstaclePosition = this.blockCount - 1;
+      this.obstacleObjectHeight = Cave.generateRandom(this.tunnelHeight * 0.3, this.tunnelHeight * 0.6);
+      let randPos = Cave.generateRandom(-0.5, 0.5);
+      this.obstacleObject.position.y = this.unitY * 20 * randPos;
+      this.obstacleObject.scale.y = this.obstacleObjectHeight;
+    }
   }
 
 }
