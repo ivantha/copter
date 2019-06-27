@@ -30,7 +30,7 @@
     "material-design-icons": "^3.0.1",
     "roboto-fontface": "^0.9.0",
     "rxjs": "^6.0.0",
-    "three": "^0.99.0",
+    "three": "^0.106.1",
     "typeface-cinzel": "0.0.54",
     "zone.js": "^0.8.26"
   },
