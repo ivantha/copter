@@ -8996,10 +8996,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeface-cinzel@0.0.72:
-  version "0.0.72"
-  resolved "https://registry.yarnpkg.com/typeface-cinzel/-/typeface-cinzel-0.0.72.tgz#15384521cde4085e66c285b770fe9a9a3b0aa4ba"
-  integrity sha512-kmxF09exfOO8Ar17WDASslNEz5g1/FE8pmw1/gQ/nqU5zu2SaM48LQVfssHoUCN3UxOxtvI0K4x5b3oQyLl9sQ==
+typeface-cinzel@1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/typeface-cinzel/-/typeface-cinzel-1.1.13.tgz#9c026fdd6a65fef7efbf874ffe5833713cefa76e"
+  integrity sha512-Rm0sBvJ/j8WeuS6cv22W/jfg1BCdz1RWaIWi2RmXhm0UWZZpIozUqcUNvNgbg3VVR/6Pq9m4FZc9PZvxubFDmA==
 
 typescript@4.0.2:
   version "4.0.2"
